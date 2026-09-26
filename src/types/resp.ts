@@ -43,6 +43,13 @@ export type FsGetResp = Resp<
   }
 >
 
+export type FsDetailInfo = {
+  driver: string
+  virtual_path: string
+  raw_path?: string
+  raw_id?: string
+}
+
 export type EmptyResp = Resp<{}>
 
 export type PResp<T> = Promise<Resp<T>>

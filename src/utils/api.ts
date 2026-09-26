@@ -3,6 +3,7 @@ import {
   PEmptyResp,
   FsGetResp,
   FsListResp,
+  FsDetailInfo,
   Obj,
   PResp,
   FsSearchResp,
@@ -30,6 +31,13 @@ export const fsGet = (
       cancelToken: cancelToken,
     },
   )
+}
+
+export const fsDetailInfo = (
+  path: string,
+  password = "",
+): PResp<FsDetailInfo> => {
+  return r.post("/fs/detail-info", { path, password })
 }
 export const fsList = (
   path: string = "/",

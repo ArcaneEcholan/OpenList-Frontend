@@ -171,6 +171,14 @@ export const ContextMenu = () => {
           <ItemContent name="copy_link" />
         </Item>
         <Item
+          hidden={isShare()}
+          onClick={() => {
+            bus.emit("tool", "detail_info")
+          }}
+        >
+          <ItemContent name="detail_info" />
+        </Item>
+        <Item
           onClick={({ props }) => {
             if (props.is_dir) {
               if (!canPackageDownload()) {

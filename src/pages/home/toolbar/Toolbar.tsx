@@ -17,6 +17,7 @@ import { LocalSettings } from "./LocalSettings"
 import { BackTop } from "./BackTop"
 import { Decompress } from "./Decompress"
 import { Share } from "./Share"
+import { DetailInfo } from "./DetailInfo"
 
 const Upload = lazy(() => import("../uploads/Upload"))
 
@@ -31,6 +32,7 @@ export const Modal = () => {
       <NewFile />
       <Mkdir />
       <Share />
+      <DetailInfo />
       <RecursiveMove />
       <RemoveEmptyDirectory />
       <BatchRename />

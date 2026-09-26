@@ -3,9 +3,12 @@ import { TiDeleteOutline } from "solid-icons/ti"
 import { CgRename, CgShare } from "solid-icons/cg"
 import { TbArchive, TbFileArrowRight } from "solid-icons/tb"
 import { TbCopy, TbLink } from "solid-icons/tb"
-import { AiTwotoneDelete } from "solid-icons/ai"
+import {
+  AiTwotoneDelete,
+  AiOutlineCloudDownload,
+  AiOutlineFileSearch,
+} from "solid-icons/ai"
 import { CgFileAdd, CgFolderAdd, CgFolderRemove } from "solid-icons/cg"
-import { AiOutlineCloudDownload } from "solid-icons/ai"
 import { ImMoveUp } from "solid-icons/im"
 import { BiRegularRename } from "solid-icons/bi"
 import { FaSolidMagnet } from "solid-icons/fa"
@@ -26,6 +29,7 @@ export const operations: Operations = {
   delete: { icon: AiTwotoneDelete, color: "$danger9" },
   decompress: { icon: TbArchive, color: "$neutral9" },
   copy_link: { icon: TbLink, color: "$info9" },
+  detail_info: { icon: AiOutlineFileSearch, color: "$info9" },
   mkdir: { icon: CgFolderAdd, p: true },
   recursive_move: { icon: ImMoveUp, p: true },
   remove_empty_directory: { icon: CgFolderRemove, p: true },
