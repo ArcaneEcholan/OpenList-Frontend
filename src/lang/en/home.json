@@ -91,6 +91,8 @@
     "share": "Share",
     "copy_link": "Copy link",
     "detail_info": "Detail Information",
+    "copy_virtual_folder_path": "Copy virtual folder path",
+    "copy_raw_folder_path": "Copy raw folder path",
     "driver": "Driver",
     "virtual_path": "Virtual Path",
     "raw_path": "Raw Path",

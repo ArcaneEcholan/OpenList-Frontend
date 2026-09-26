@@ -2,19 +2,27 @@ import { Box, createDisclosure, VStack } from "@hope-ui/solid"
 import { createMemo, Show } from "solid-js"
 import { RightIcon } from "./Icon"
 import { CgMoreO } from "solid-icons/cg"
-import { TbCheckbox } from "solid-icons/tb"
-import { objStore, selectAll, State, toggleCheckbox, userCan } from "~/store"
-import { bus } from "~/utils"
+import { TbCheckbox, TbClipboardCopy, TbFolders } from "solid-icons/tb"
+import {
+  objStore,
+  password,
+  selectAll,
+  State,
+  toggleCheckbox,
+  userCan,
+} from "~/store"
+import { bus, fsDetailInfo, handleResp, notify } from "~/utils"
 import { operations } from "./operations"
 import { IoMagnetOutline } from "solid-icons/io"
 import { AiOutlineCloudUpload, AiOutlineSetting } from "solid-icons/ai"
 import { RiSystemRefreshLine } from "solid-icons/ri"
-import { usePath, useRouter } from "~/hooks"
+import { useFetch, usePath, useRouter, useT, useUtil } from "~/hooks"
 import { Motion } from "solid-motionone"
 import { isTocVisible, setTocDisabled } from "~/components"
 import { BiSolidBookContent } from "solid-icons/bi"
 
 export const Right = () => {
+  const t = useT()
   const { isOpen, onToggle } = createDisclosure({
     defaultIsOpen: localStorage.getItem("more-open") === "true",
     onClose: () => localStorage.setItem("more-open", "false"),
@@ -23,7 +31,25 @@ export const Right = () => {
   const margin = createMemo(() => (isOpen() ? "$4" : "$5"))
   const isFolder = createMemo(() => objStore.state === State.Folder)
   const { refresh } = usePath()
-  const { isShare } = useRouter()
+  const { isShare, pathname } = useRouter()
+  const { copy } = useUtil()
+  const [, fetchDetailInfo] = useFetch(fsDetailInfo)
+
+  const copyVirtualFolderPath = () => {
+    copy(pathname())
+  }
+
+  const copyRawFolderPath = async () => {
+    const resp = await fetchDetailInfo(pathname(), password())
+    handleResp(resp, (data) => {
+      if (data.raw_path) {
+        copy(data.raw_path)
+      } else {
+        notify.warning(t("home.toolbar.raw_path_unavailable"))
+      }
+    })
+  }
+
   return (
     <Box
       class="left-toolbar-box"
@@ -162,6 +188,18 @@ export const Right = () => {
                 onClick={() => {
                   bus.emit("tool", "offline_download")
                 }}
+              />
+            </Show>
+            <Show when={isFolder() && !isShare()}>
+              <RightIcon
+                as={TbClipboardCopy}
+                tips="copy_virtual_folder_path"
+                onClick={copyVirtualFolderPath}
+              />
+              <RightIcon
+                as={TbFolders}
+                tips="copy_raw_folder_path"
+                onClick={copyRawFolderPath}
               />
             </Show>
             <Show when={isTocVisible()}>
